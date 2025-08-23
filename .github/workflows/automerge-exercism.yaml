@@ -1,5 +1,6 @@
 name: Auto-Merge Exercism PRs
 
+# Trigger on new or updated pull requests
 on:
   pull_request:
     types: [opened, synchronize, reopened]
@@ -7,12 +8,16 @@ on:
 jobs:
   automerge:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Auto-merge PRs from Exercism bot
+      - name: Auto-merge Exercism PRs
         uses: pascalgn/automerge-action@v0.15.3
-        if: github.actor == 'exercism-solutions-syncer[bot]'
+        # Only trigger on PRs created by any Exercism bot
+        if: startsWith(github.actor, 'exercism')
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          mergeMethod: squash
-          commitMessage: title
-          mergeComment: true
+          mergeMethod: squash        # You can change to merge or rebase
+          commitMessage: title       # Use PR title as commit message
+          mergeComment: true         # Leave a comment after merge
+          # Optional: continue-on-error avoids workflow failure if merge fails
+        continue-on-error: true
