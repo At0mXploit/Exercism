@@ -10,9 +10,9 @@ jobs:
     steps:
       - name: Auto-merge PRs from Exercism bot
         uses: pascalgn/automerge-action@v0.15.3
-        if: github.actor == 'exercism[bot]'
+        if: github.actor == 'exercism-solutions-syncer[bot]'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          mergeMethod: squash       # Combine all PR commits into one
-          commitMessage: title      # Use the PR title as the commit message
-          mergeComment: true        # Add a comment when merging
+          mergeMethod: squash
+          commitMessage: title
+          mergeComment: true
