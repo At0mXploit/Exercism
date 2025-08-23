@@ -2,7 +2,7 @@ name: Auto-Merge Exercism PRs
 
 on:
   pull_request:
-    types: [opened]
+    types: [opened, synchronize, reopened]
 
 jobs:
   automerge:
@@ -13,4 +13,6 @@ jobs:
         if: github.actor == 'exercism[bot]'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          mergeMethod: squash
+          mergeMethod: squash       # Combine all PR commits into one
+          commitMessage: title      # Use the PR title as the commit message
+          mergeComment: true        # Add a comment when merging
